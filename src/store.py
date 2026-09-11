@@ -29,5 +29,5 @@ class TaskStore:
         return [
             task
             for task in self._tasks.values()
-            if task.status == TaskStatus.open and task.due > today
+            if task.status == TaskStatus.open and task.due < today
         ]

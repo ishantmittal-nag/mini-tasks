@@ -24,3 +24,10 @@ class TaskStore:
         task = self._tasks[task_id]
         task.status = TaskStatus.done
         return task
+
+    def list_overdue_tasks(self, today: date) -> list[Task]:
+        return [
+            task
+            for task in self._tasks.values()
+            if task.status == TaskStatus.open and task.due < today
+        ]

@@ -14,3 +14,8 @@ def test_checkout_defaults_to_no_discount():
 def test_checkout_applies_tier_discount():
     result = checkout({"price": 100, "customer_tier": "gold"})
     assert result["total"] == 85
+
+
+def test_checkout_applies_region_tax():
+    result = checkout({"price": 100, "region": "us"})
+    assert result["total"] == 108

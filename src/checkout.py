@@ -1,4 +1,4 @@
-from src.pricing import apply_discount, price_with_tier_discount
+from src.pricing import apply_discount, price_with_tier_discount, tax_rate_for_region
 
 
 def checkout(order: dict) -> dict:
@@ -9,4 +9,6 @@ def checkout(order: dict) -> dict:
     else:
         discount_percent = order.get("discount_percent", 0)
         total = apply_discount(price, discount_percent)
+    if "region" in order:
+        total += total * tax_rate_for_region(order["region"])
     return {"total": total}

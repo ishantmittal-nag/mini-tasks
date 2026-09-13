@@ -16,3 +16,10 @@ def discount_rate_for_tier(tier: str) -> float:
 def price_with_tier_discount(price: float, tier: str) -> float:
     rate = discount_rate_for_tier(tier)
     return price - (price * rate)
+
+
+TAX_RATES = {"us": 0.08, "eu": 0.20, "uk": 0.20}
+
+
+def tax_rate_for_region(region: str) -> float:
+    return TAX_RATES[region]

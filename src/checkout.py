@@ -1,6 +1,7 @@
 from src.inventory import InventoryStore
 from src.pricing import apply_discount
 from src.promotions import promo_discount, redeem_gift_card, shipping_rate_for_method
+from src.tax import sales_tax
 
 
 def checkout(order: dict, inventory: InventoryStore | None = None) -> dict:
@@ -17,6 +18,9 @@ def checkout(order: dict, inventory: InventoryStore | None = None) -> dict:
 
     if "shipping_method" in order:
         total += shipping_rate_for_method(order["shipping_method"])
+
+    if "state" in order:
+        total += sales_tax(total, order["state"])
 
     if inventory is not None and "sku" in order:
         quantity = order.get("quantity", 1)

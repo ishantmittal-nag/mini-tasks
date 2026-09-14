@@ -9,7 +9,9 @@ GIFT_CARD_BALANCES = {"gc-1001": 25.0, "gc-1002": 50.0, "gc-1003": 100.0}
 
 
 def redeem_gift_card(code: str) -> float:
-    return GIFT_CARD_BALANCES[code]
+    balance = GIFT_CARD_BALANCES[code]
+    GIFT_CARD_BALANCES[code] = 0.0
+    return balance
 
 
 SHIPPING_RATES = {"standard": 5.0, "express": 15.0, "overnight": 30.0}

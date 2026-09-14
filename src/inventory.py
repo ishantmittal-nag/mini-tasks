@@ -19,3 +19,8 @@ class InventoryStore:
     def release_stock(self, sku: str, quantity: int) -> int:
         self._stock[sku] = self._stock.get(sku, 0) + quantity
         return self._stock[sku]
+
+    def bulk_reserve(self, items: list[dict]) -> None:
+        """Reserve stock for a list of {"sku": ..., "quantity": ...} line items."""
+        for item in items:
+            self.reserve_stock(item["sku"], item["quantity"])

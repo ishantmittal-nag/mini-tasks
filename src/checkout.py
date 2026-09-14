@@ -1,6 +1,7 @@
 from src.inventory import InventoryStore
 from src.pricing import apply_discount
-from src.promotions import promo_discount
+from src.promotions import promo_discount, redeem_gift_card, shipping_rate_for_method
+from src.tax import sales_tax
 
 
 def checkout(order: dict, inventory: InventoryStore | None = None) -> dict:
@@ -12,8 +13,25 @@ def checkout(order: dict, inventory: InventoryStore | None = None) -> dict:
         discount_percent = order.get("discount_percent", 0)
     total = apply_discount(price, discount_percent)
 
+    if "gift_card_code" in order:
+        total -= redeem_gift_card(order["gift_card_code"])
+
+    if "shipping_method" in order:
+        total += shipping_rate_for_method(order["shipping_method"])
+
+    if "state" in order:
+        total += sales_tax(total, order["state"])
+
     if inventory is not None and "sku" in order:
         quantity = order.get("quantity", 1)
         inventory.reserve_stock(order["sku"], quantity)
 
+    return {"total": total}
+
+
+def checkout_cart(cart: dict, inventory: InventoryStore) -> dict:
+    """Compute the total for a multi-line-item cart payload and reserve stock for it."""
+    items = cart["items"]
+    total = sum(item["price"] * item.get("quantity", 1) for item in items)
+    inventory.bulk_reserve(items)
     return {"total": total}

@@ -1,4 +1,5 @@
 def apply_discount(price: float, percent: float) -> float:
+    # percent is expected in the 0-100 range, not a 0-1 fraction
     return price - (price * percent / 100)
 
 

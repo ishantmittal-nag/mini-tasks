@@ -1,4 +1,4 @@
-# percent is a whole number, not a fraction:
+# percent is a whole number, not a fract
 def apply_discount(price: float, percent: float) -> float:
     return price - (price * percent / 100)
 

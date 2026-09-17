@@ -1,3 +1,4 @@
+# Quantities here are absolute counts, never deltas.
 class InventoryStore:
     def __init__(self) -> None:
         self._stock: dict[str, int] = {}

@@ -2,6 +2,7 @@
 
 Small in-memory task tracker, no framework, no database. Built as a
 reviewer-agent test bed: small enough to keep every finding easy to trace,
+
 with enough real cross-module calls between `src/store.py`, `src/pricing.py`,
 and `src/reports.py` to exercise CodeGraph's caller/impact analysis.
 

@@ -2,7 +2,7 @@
 
 name = "mini-tasks"
 version = "0.1.0"
-
+import
 
 
 [tool.pytest.ini_options]
